@@ -7,17 +7,19 @@
 
 
 const express = require('express');
+const logger = require('morgan');
 const app = express();
 
 
 //unlike app.get, app.use will work for all HTTP verbs
 //if we do not give a URL for the first argument, it will match for every URL
-app.use((request, response, next) =>{
-  console.log(`${request.method} - ${request.path} ${new Date().toString()}`);
-  next();//next, a function and third argument of a middleware callback,
-  //tells Express  to move on to the next
-})
+// app.use((request, response, next) =>{
+//   console.log(`✨${request.method} - ${request.path} ${new Date().toString()}`);
+//   next();//next, a function and third argument of a middleware callback,
+//   //tells Express  to move on to the next middleware
+// })
 
+app.use(logger('dev'));
 
 
 //URL: http://localhost:4545/helloWorld VERB: Get
