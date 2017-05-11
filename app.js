@@ -8,6 +8,7 @@
 
 const express = require('express');
 const logger = require('morgan');
+const home = require('./routes/home')
 const app = express();
 
 //Configure Express app to use the ejs templating engine for our app's views
@@ -24,6 +25,7 @@ app.set('view engine','ejs');
 
 app.use(logger('dev'));
 
+app.use('/', home);
 
 //URL: http://localhost:4545/helloWorld VERB: Get
 //request & response names are just variables; can be renamed; what matters is the order; the first one will always be the request
@@ -36,6 +38,11 @@ app.get('/helloWorld', (request, response) =>{
   response.send('Hello World!')
 })
 
+// URL: http://localhost:4545/ VERB: Get
+// app.get('/', (request, response) => {
+//   //use the response.render instead response.send when you want to show a view from your views folder
+//   response.render(/*/views/*/'index');
+// })
 
 
 const PORT = 4545;
