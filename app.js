@@ -1,14 +1,17 @@
-//Step 1: Create project 'yarn init'
-//Step 2: Add Express package `yarn add Express`
-//Step3: create app.js
-//Step4: require express in app.js
-//Step5: Create a get route to server `/helloWorld`
-//Step6:
+// Step 1: Create project `yarn init`
+// Step 2: Add Express package `yarn add express`
+// Step 3: Create `app.js` file
+// Step 4: Require Express in `app.js`
+// Step 5: Create a get route to server `/helloWorld`
+// Step 6: Have server listen on PORT
 
 
 const express = require('express');
 const logger = require('morgan');
 const app = express();
+
+//Configure Express app to use the ejs templating engine for our app's views
+app.set('view engine','ejs');
 
 
 //unlike app.get, app.use will work for all HTTP verbs
