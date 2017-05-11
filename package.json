@@ -1,0 +1,11 @@
+{
+  "name": "node-express-demo",
+  "version": "0.0.0",
+  "description": "Demo for Node & Express i/ii Lessons",
+  "main": "app.js",
+  "author": "Rubi Sc",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "^4.1.0"
+  }
+}
