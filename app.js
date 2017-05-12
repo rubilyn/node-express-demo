@@ -5,48 +5,63 @@
 // Step 5: Create a get route to server `/helloWorld`
 // Step 6: Have server listen on PORT
 
-
+// require is a function that's part of node that is
+// use load modules. it returns the object exported by
+// the module.
+const path = require('path');
 const express = require('express');
 const logger = require('morgan');
-const home = require('./routes/home')
+const bodyParser = require('body-parser');
+
+const home = require('./routes/home');
+
 const app = express();
 
-//Configure Express app to use the ejs templating engine for our app's views
-app.set('view engine','ejs');
+// Configure Express app to use the ejs templating engine for our app's views
+app.set('view engine', 'ejs');
 
-
-//unlike app.get, app.use will work for all HTTP verbs
-//if we do not give a URL for the first argument, it will match for every URL
-// app.use((request, response, next) =>{
-//   console.log(`✨${request.method} - ${request.path} ${new Date().toString()}`);
-//   next();//next, a function and third argument of a middleware callback,
-//   //tells Express  to move on to the next middleware
-// })
-
+// unline app.get, app.use will work for all HTTP Verbs
+// if we do not give a URL for the first argument, it will match for every
+// URL
+/*
+app.use((request, response, next) => {
+  console.log(`ð${request.method} âÂ ${request.path} â ${new Date().toString()}`);
+  next(); // next, a function and third argument of a middleware callback,
+  // tells Express to move on to the next middleware
+});
+*/
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+// ð bodyParser.urlencoded will return middleware that will
+// transform the raw data of the request into a javascript object
+// that will be assigned to req.body
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', home);
 
-//URL: http://localhost:4545/helloWorld VERB: Get
-//request & response names are just variables; can be renamed; what matters is the order; the first one will always be the request
-app.get('/helloWorld', (request, response) =>{
-
-  //the arguments passed to this callback are in order: request, response &  next
-  // - requet is an object that contains the entire messsage from the client (usually a browser)
-  // - response is an object that contains the message our server will reply with to the client
-
-  response.send('Hello World!')
-})
+// URL: http://localhost:4545/helloWorld VERB: Get
+app.get('/helloWorld', (request, response) => {
+  // This callback (which receives a request & response) is usually named
+  // Middleware
+  // The arguments passed to this callback are in order: request, response & next
+  // - request is an object that contains the entire message from the client (usually
+  //   a browser)
+  // - response is an object that contains the message our server will reply with
+  //   to the client
+  response.send('Hello World!');
+});
 
 // URL: http://localhost:4545/ VERB: Get
-// app.get('/', (request, response) => {
-//   //use the response.render instead response.send when you want to show a view from your views folder
-//   response.render(/*/views/*/'index');
-// })
-
+/*
+app.get('/', (request, response) => {
+  // use the response.render instead response.send when you want to
+  // show a view from yours views folder
+  response.render('index');
+});
+*/
 
 const PORT = 4545;
 app.listen(
   PORT,
-  () => {console.log(`Server listening on http://localhost:${PORT}`);}
+  () => { console.log(`ð» Server listening on http://localhost:${PORT}`); }
 );

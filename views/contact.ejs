@@ -1,0 +1,34 @@
+<%- include('./partials/header') %>
+
+<h1>Contact</h1>
+
+<% if (fullName && email) { %>
+  <h2>Thank you for submitting!</h2>
+<% } %>
+
+<%# to tell the form tag where to post, give a URL
+to its action attribute
+(e.g <form action="/us" > ... </form>)
+%>
+<form method="post">
+  <div>
+    <label for="fullName">Name: </label>
+    <input id="fullName" name="fullName" value="<%= fullName %>"/>
+  </div>
+
+  <div>
+    <label for="email">Email: </label>
+    <input id="email" name="email" value="<%= email %>" />
+  </div>
+
+  <div>
+    <label for="comment">Comment: </label>
+    <textarea id="comment" name="comment"><%= comment %></textarea>
+  </div>
+
+  <div>
+    <input type="submit" name="submit" />
+  </div>
+</form>
+
+<%- include('./partials/footer') %>
