@@ -16,7 +16,17 @@ router.get('/contact', (req, res) => {
 // URL: http://localhost:4545/contact VERB: Post
 router.post('/contact',  (req, res) => {
   const params = req.body;
-  params.fullName = "Dictator " + params.fullName;
+  // Cookies are stored on the browser
+  // To create cookie, we must tell browser in our
+  // response to add a cookie of given name with given values
+  // ð would add...
+  res.cookie('fullName', params.fullName);
+
+  // You can store arrays and objects in cookies. However, cookier
+  // parser transforms (or serializes) them into a string.
+  // Then, it parses it back into an the respective JavaScript for
+  // your usage.
+  res.cookie('things', ['Power Supply', 'Rubber Duck', 'Ice Cream']);
   // {
   //   "fullName": "fafasdas",
   //   "email": "dasdas@dsadas.com",

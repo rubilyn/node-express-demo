@@ -12,6 +12,7 @@ const path = require('path');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const home = require('./routes/home');
 
@@ -36,6 +37,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // transform the raw data of the request into a javascript object
 // that will be assigned to req.body
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  const {cookies} = req;
+  // ð equivalent to ð const cookies = req.cookies;
+  // cookies.fullName // returns 'Cersei Lannister'
+  // cookies.things[0]
+  console.log('ðª', cookies);
+  next();
+});
 
 app.use('/', home);
 
