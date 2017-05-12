@@ -15,6 +15,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const home = require('./routes/home');
+const posts = require('./routes/posts');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/posts', posts);
 app.use('/', home);
 
 // URL: http://localhost:4545/helloWorld VERB: Get
