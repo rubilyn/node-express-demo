@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// URL: /posts VERB: GET ACTION: Read
+
 router.get('/', (req, res) => {
 
   db.query(`SELECT * FROM posts ORDER BY id DESC`)
@@ -12,6 +12,25 @@ router.get('/', (req, res) => {
     })
     .catch(err => { res.send(err); });
 });
+
+router.get('/new', (req, res) => {
+  res.render('posts/new')
+})
+
+router.post('/', (req, res, next) => {
+  const post = req.body
+
+  db.query(`
+    INSERT INTO posts (title, content, author)
+    VALUES ($<title>, $<content>, $<author>)
+  `, post).then(()=>{
+    res.redirect('/posts')
+  })
+})
+
+
+
+
 
 // URL: /posts/:id VERB: GET ACTION: Read
 router.get('/:id', (req, res) => {
